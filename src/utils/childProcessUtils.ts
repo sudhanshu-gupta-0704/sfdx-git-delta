@@ -1,11 +1,11 @@
 'use strict'
-const os = require('os')
-const path = require('path')
+import { EOL } from 'os'
+import { sep, normalize } from 'path'
 
-const treatEOL = data => data.replace(/\r?\n/g, os.EOL)
-const treatPathSep = data => data.replace(/[/\\]+/g, path.sep)
-const sanitizePath = data => path.normalize(treatPathSep(data))
+const treatPathSep = (data: string) => data.replace(/[/\\]+/g, sep)
 
-module.exports.treatDataFromSpawn = data => treatEOL(treatPathSep(data))
-module.exports.treatEOL = treatEOL
-module.exports.sanitizePath = sanitizePath
+const treatEOL = (data: string) => data.replace(/\r?\n/g, EOL)
+const sanitizePath = (data: string) => normalize(treatPathSep(data))
+const treatDataFromSpawn = (data: string) => treatEOL(treatPathSep(data))
+
+export { treatDataFromSpawn, treatEOL, sanitizePath }
