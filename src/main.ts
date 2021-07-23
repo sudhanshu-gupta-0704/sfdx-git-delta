@@ -1,7 +1,7 @@
 'use strict'
 const PackageConstructor = require('./utils/packageConstructor')
 const TypeHandlerFactory = require('./service/typeHandlerFactory')
-const { sanitizePath } = require('./utils/childProcessUtils')
+import { sanitizePath } from './utils/childProcessUtils'
 const metadataManager = require('./metadata/metadataManager')
 const RepoSetup = require('./utils/repoSetup')
 const repoGitDiff = require('./utils/repoGitDiff')
