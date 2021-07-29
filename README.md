@@ -11,7 +11,7 @@ sfdx plugins:install sfdx-git-delta
 ```
 
 ```sh
-sfdx sgd:source:delta --to "HEAD" --from "HEAD^" --output "."
+sfdx sgd:source:delta --to "HEAD" --from "HEAD~1" --output "."
 ```
 
 ```sh
@@ -93,7 +93,8 @@ If you encounter this issue while having installed the correct version of node o
 ## How to use it?
 
 <!-- commands -->
-* [`sfdx sgd:source:delta -f <string> [-t <string>] [-r <filepath>] [-i <filepath>] [-D <filepath>] [-o <filepath>] [-a <number>] [-d] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-sgdsourcedelta--f-string--t-string--r-filepath--i-filepath--d-filepath--o-filepath--a-number--d---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
+
+- [`sfdx sgd:source:delta -f <string> [-t <string>] [-r <filepath>] [-i <filepath>] [-D <filepath>] [-o <filepath>] [-a <number>] [-d] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-sgdsourcedelta--f-string--t-string--r-filepath--i-filepath--d-filepath--o-filepath--a-number--d---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
 
 ## `sfdx sgd:source:delta -f <string> [-t <string>] [-r <filepath>] [-i <filepath>] [-D <filepath>] [-o <filepath>] [-a <number>] [-d] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
 
@@ -101,7 +102,7 @@ Generate the sfdx content in source format and destructive change from two git c
 
 ```
 USAGE
-  $ sfdx sgd:source:delta -f <string> [-t <string>] [-r <filepath>] [-i <filepath>] [-D <filepath>] [-o <filepath>] [-a 
+  $ sfdx sgd:source:delta -f <string> [-t <string>] [-r <filepath>] [-i <filepath>] [-D <filepath>] [-o <filepath>] [-a
   <number>] [-d] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]
 
 OPTIONS
@@ -132,6 +133,7 @@ OPTIONS
 ```
 
 _See code: [src/commands/sgd/source/delta.ts](https://github.com/scolladon/sfdx-git-delta/blob/v4.7.1/src/commands/sgd/source/delta.ts)_
+
 <!-- commandsstop -->
 
 ### Important note for Windows users:
@@ -165,12 +167,12 @@ So let’s do it!
 From the project repo folder, the CI pipeline will run the following command:
 
 ```sh
-sfdx sgd:source:delta --to "HEAD" --from "HEAD^" --output .
+sfdx sgd:source:delta --to "HEAD" --from "HEAD~1" --output .
 ```
 
 which means:
 
-> Analyze the difference between HEAD (latest commit) and HEAD^ (previous commit), and output the result in the current folder.
+> Analyze the difference between HEAD (latest commit) and HEAD~1 (previous commit), and output the result in the current folder.
 
 The `sfdx sgd:source:delta` command produces 2 usefull artifacts:
 
@@ -253,7 +255,7 @@ Let's use this option with our previous example:
 
 ```sh
 mkdir changed-sources
-sfdx sgd:source:delta --to "HEAD" --from "HEAD^" --output changed-sources/ --generate-delta
+sfdx sgd:source:delta --to "HEAD" --from "HEAD~1" --output changed-sources/ --generate-delta
 ```
 
 In addition to the `package` and `destructiveChanges` folders, the `sfdx sgd:source:delta` command will also produce a copy of the added/changed files in the ouput folder.
@@ -269,7 +271,7 @@ _Content of the output folder when using the --generate-delta option, with the s
 > # move HEAD to past commit we are interested in
 > $ git checkout <not-HEAD-commit-sha>
 > # You can omit --to, it will take "HEAD" as default value
-> $ sfdx sgd:source:delta --from "HEAD^" --output changed-sources/ --generate-delta
+> $ sfdx sgd:source:delta --from "HEAD~1" --output changed-sources/ --generate-delta
 > ```
 
 ### Exclude some metadata only from destructiveChanges.xml:
